@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  rabbitmq:
+      build: ./rabbitmq
+      ports:
+        - "5672:5672"
+        - "15672:15672"
+        - "15671:15671"
+      privileged: true
+      environment:
+        - RABBITMQ_DEFAULT_USER=guest
+        - RABBITMQ_DEFAULT_PASS=guest
+      hostname: my-rabbitmq
+      volumes:
+        - ./data/rabbitmq:/var/lib/rabbitmq/mnesia
+      networks:
+        - default
